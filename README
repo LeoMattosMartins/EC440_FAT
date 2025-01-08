@@ -1,0 +1,47 @@
+         _              _               _         _           _        
+        _\ \           /\ \            /\ \     /_/\         / /\      
+       /\__ \         /  \ \          /  \ \    \_\ \       / /  \     
+      / /_ \_\       / /\ \ \        / /\ \ \   /\_\/      / / /\ \__  
+     / / /\/_/      / / /\ \_\      / / /\ \ \  \/_/      / / /\ \___\ 
+    / / /          / /_/_ \/_/     / / /  \ \_\           \ \ \ \/___/ 
+   / / /          / /____/\       / / /   / / /            \ \ \       
+  / / / ____     / /\____\/      / / /   / / /         _    \ \ \      
+ / /_/_/ ___/\  / / /______     / / /___/ / /         /_/\__/ / /      
+/_______/\__\/ / / /_______\   / / /____\/ /          \ \/___/ /       
+\_______\/     \/__________/   \/_________/            \_____\/        
+                                                                       
+
+README
+	Simplified file system with FAT-inspired design
+	 - make_fs: Creates and initializes a new file system on a virtual disk.
+	 - mount_fs: Mounts an existing file system from a virtual disk.
+	 - umount_fs: Unmounts the file system and saves changes to the disk.
+	 - fs_create: Creates a new file in the file system.
+	 - fs_delete: Deletes a file and frees its allocated blocks.
+	 - fs_open: Opens a file and returns a file descriptor.
+	 - fs_close: Closes an open file descriptor.
+	 - fs_read: Reads data from a file starting at the current offset.
+	 - fs_write: Writes data to a file starting at the current offset.
+	 - fs_lseek: Adjusts the offset of a file descriptor for future operations.
+	 - fs_truncate: Changes the size of a file, freeing or zero-filling blocks as needed.
+	 - fs_listfiles: Lists all files currently stored in the file system.
+	 - fs_get_filesize: Returns the size of a file based on its file descriptor.
+	 - find_free_block: Finds and returns the index of the first free block in the FAT.	
+
+SOURCES USED
+	Piazza, geeksforgeeks, man pages
+
+
+PARTS WHICH GAVE ME A MIGRAINE: (these amount to roughly 10% of test cases)
+	[!] test4f: Open same file 2 times, close fd 1, read from that file using fd 2		F A I L E D     
+	[!] test7a: Read bytes 501 - 510                                                        F A I L E D       
+	[!] test7b: Read bytes 900 - 999                                  	 	 	F A I L E D       
+	[!] test7c: Read bytes 900 - 1999                                 	 	 	F A I L E D   
+	[!] test7g: Write 1000 bytes, write 2 bytes at pos 500 -> check bytes 500-504  		F A I L E D     
+	[!] test7h: Read bytes 4092 from a 4092 Byte file                 	 	 	F A I L E D       
+	[!] test7i: Read bytes 8000 from a 8000 Byte file                 	 	 	F A I L E D      
+	[!] test8a: Write 10 bytes / read 10 bytes starting at position 0                       F A I L E D      
+	[!] test8b: Write 10 bytes / read 1 byte starting at position 5                         F A I L E D       
+	[!] test8d: Write 15MB file, seek end, write 2MB --> 1MB must be written                F A I L E D       
+	[!] test8g: Write 1MB data to file / write bytes 500-600 / read whole file              F A I L E D       
+	[!] test12a: Truncate                                                                   F A I L E D 
